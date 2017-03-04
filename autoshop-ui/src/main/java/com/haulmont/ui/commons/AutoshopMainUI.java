@@ -1,11 +1,16 @@
 package com.haulmont.ui.commons;
 
+import com.haulmont.navigator.AutoshopNavigator;
+import com.haulmont.ui.clients.ClientsLayoutFactory;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 /**
  * Created by Vlad on 23-Feb-17.
@@ -20,7 +25,13 @@ public class AutoshopMainUI extends UI {
     private Panel changeTab = new Panel();
 
     @Autowired
-    private AutoshopFactory autoshopFactory;
+    private ApplicationContext applicationContext;
+
+    @Autowired
+    private AutoshopMenuFactory autoshopMenuFactory;
+
+    @Autowired
+    private SpringViewProvider viewProvider;
 
 
     @Override
@@ -40,7 +51,7 @@ public class AutoshopMainUI extends UI {
         uiLayout.setSizeFull();
         uiLayout.setMargin(true);
 
-        Component menu = autoshopFactory.createComponent();
+        Component menu = autoshopMenuFactory.createComponent();
 
         uiLayout.addComponent(menu);
         uiLayout.addComponent(changeTab);
@@ -57,7 +68,16 @@ public class AutoshopMainUI extends UI {
         rootLayout.setComponentAlignment(contentPanel, Alignment.TOP_CENTER);
         rootLayout.setExpandRatio(contentPanel, 1);
 
+        initNavigator();
+
         setContent(rootLayout);
 
+    }
+    private void initNavigator () {
+        AutoshopNavigator navigator = new AutoshopNavigator(this, changeTab);
+        //insertion to application context
+        applicationContext.getAutowireCapableBeanFactory().autowireBean(navigator);
+        navigator.addProvider(viewProvider);
+        navigator.navigateTo(ClientsLayoutFactory.NAME);
     }
 }
