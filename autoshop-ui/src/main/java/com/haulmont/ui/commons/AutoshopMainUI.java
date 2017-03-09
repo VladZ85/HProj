@@ -1,12 +1,11 @@
 package com.haulmont.ui.commons;
 
 import com.haulmont.navigator.AutoshopNavigator;
-import com.haulmont.ui.clients.ClientsLayoutFactory;
+import com.haulmont.ui.clients.ClientLayoutFactory;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +77,6 @@ public class AutoshopMainUI extends UI {
         //insertion to application context
         applicationContext.getAutowireCapableBeanFactory().autowireBean(navigator);
         navigator.addProvider(viewProvider);
-        navigator.navigateTo(ClientsLayoutFactory.NAME);
+        navigator.navigateTo(ClientLayoutFactory.NAME);
     }
 }
