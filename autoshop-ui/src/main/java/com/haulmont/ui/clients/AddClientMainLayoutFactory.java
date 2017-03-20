@@ -1,11 +1,15 @@
 package com.haulmont.ui.clients;
 
 import com.haulmont.model.entity.Client;
+import com.haulmont.service.addclient.AddClientService;
 import com.haulmont.utils.ClientsStringUtils;
+import com.haulmont.utils.NotificationMessages;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.themes.ValoTheme;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 
 
@@ -15,7 +19,7 @@ import org.springframework.stereotype.*;
 @org.springframework.stereotype.Component
 public class AddClientMainLayoutFactory {
 
-    private class AddClientMainLayout extends VerticalLayout {
+    private class AddClientMainLayout extends VerticalLayout implements Button.ClickListener {
 
         private TextField firstName;
         private TextField middleName;
@@ -42,6 +46,9 @@ public class AddClientMainLayoutFactory {
 
             okButton.setStyleName(ValoTheme.BUTTON_FRIENDLY);
             cancelButton.setStyleName(ValoTheme.BUTTON_PRIMARY);
+
+            okButton.addClickListener(this);
+            cancelButton.addClickListener(this);
 
             firstName.setNullRepresentation("");
             middleName.setNullRepresentation("");
@@ -74,7 +81,39 @@ public class AddClientMainLayoutFactory {
             return gridLayout;
         }
 
+        public void buttonClick(Button.ClickEvent clickEvent) {
+            if (clickEvent.getSource() == this.okButton) {
+                save();
+            }
+            else {
+                clearField();
+            }
+
+        }
+
+        private void save () {
+            try {
+                fieldGroup.commit();
+            } catch (FieldGroup.CommitException e) {
+                Notification.show(NotificationMessages.CLIENT_SAVE_VALIDATION_ERROR_TITLE.getString(),
+                    NotificationMessages.CLIENT_SAVE_VALIDATION_ERROR_DISCRIPTION.getString(),
+                        Notification.Type.ERROR_MESSAGE );
+                return;
+            }
+            addClientService.saveClient(client);
+            clearField();
+        }
+
+        private void clearField() {
+            firstName.setValue(null);
+            middleName.setValue(null);
+            lastName.setValue(null);
+            phoneNumber.setValue(null);
+        }
     }
+
+    @Autowired
+    private AddClientService addClientService;
 
     public Component createComponent() {
         return new AddClientMainLayout().init().bind().layout();

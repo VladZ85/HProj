@@ -17,8 +17,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan(("com.haulmont"))
-//@EnableJpaRepositories(("com.haulmont"))
-//@EntityScan(("com.haulmont"))
+@EnableJpaRepositories(("com.haulmont"))
+@EntityScan(("com.haulmont"))
 public class SpringBootApplication extends SpringBootServletInitializer {
 
     protected SpringApplicationBuilder configure (SpringApplicationBuilder application)  {
