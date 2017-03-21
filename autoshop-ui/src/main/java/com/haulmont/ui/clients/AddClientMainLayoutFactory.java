@@ -10,7 +10,6 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.*;
 
 
 /**
@@ -31,6 +30,12 @@ public class AddClientMainLayoutFactory {
 
         private BeanFieldGroup<Client> fieldGroup;
         private Client client;
+
+        private StudentSavedListener studentSavedListener;
+
+        public AddClientMainLayout (StudentSavedListener studentSavedListener) {
+            this.studentSavedListener = studentSavedListener;
+        }
 
         public AddClientMainLayout init() {
 
@@ -96,12 +101,17 @@ public class AddClientMainLayoutFactory {
                 fieldGroup.commit();
             } catch (FieldGroup.CommitException e) {
                 Notification.show(NotificationMessages.CLIENT_SAVE_VALIDATION_ERROR_TITLE.getString(),
-                    NotificationMessages.CLIENT_SAVE_VALIDATION_ERROR_DISCRIPTION.getString(),
+                    NotificationMessages.CLIENT_SAVE_VALIDATION_ERROR_DESCRIPTION.getString(),
                         Notification.Type.ERROR_MESSAGE );
                 return;
             }
             addClientService.saveClient(client);
+            studentSavedListener.studentSaved();
             clearField();
+
+            Notification.show(NotificationMessages.CLIENT_SAVE_SUCCESS_TITLE.getString(),
+                    NotificationMessages.CLIENT_SAVE_SUCCESS_DESCRIPTION.getString(),
+                    Notification.Type.WARNING_MESSAGE );
         }
 
         private void clearField() {
@@ -115,8 +125,8 @@ public class AddClientMainLayoutFactory {
     @Autowired
     private AddClientService addClientService;
 
-    public Component createComponent() {
-        return new AddClientMainLayout().init().bind().layout();
+    public Component createComponent(StudentSavedListener studentSavedListener) {
+        return new AddClientMainLayout(studentSavedListener).init().bind().layout();
     }
 
 }

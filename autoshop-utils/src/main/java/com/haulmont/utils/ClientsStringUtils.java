@@ -6,6 +6,7 @@ package com.haulmont.utils;
 public enum  ClientsStringUtils {
 
     MAIN_MENU("MAIN MENU"),
+    SHOW_ALL("SHOW ALL CLIENTS"),
     FIRST_NAME("First name"),
     MIDDLE_NAME("Middle name"),
     LAST_NAME("Last name"),
