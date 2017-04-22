@@ -17,6 +17,8 @@ import java.util.List;
 @org.springframework.stereotype.Component
 public class ShowAllClientsLayoutFactory implements UIComponentBuilder {
 
+    public static final String NAME = "clientslist";
+
     private List<Client> clients;
     private BeanItemContainer <Client> container;
 
@@ -29,7 +31,8 @@ public class ShowAllClientsLayoutFactory implements UIComponentBuilder {
             container = new BeanItemContainer<Client>(Client.class, clients);
             clientsTable = new Grid(container);
             clientsTable.setColumnOrder("firstName", "lastName", "middleName", "phoneNumber");
-            //clientsTable.removeColumn("id");
+            clientsTable.removeColumn("id");
+            clientsTable.setWidth("100%");
             clientsTable.setImmediate(true);
             return this;
         }

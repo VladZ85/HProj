@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by Vlad on 06-Mar-17.
  */
 @org.springframework.stereotype.Component
-public class AddClientMainLayoutFactory {
+public class AddClientLayoutFactory {
 
     private class AddClientMainLayout extends VerticalLayout implements Button.ClickListener {
 
@@ -31,9 +31,9 @@ public class AddClientMainLayoutFactory {
         private BeanFieldGroup<Client> fieldGroup;
         private Client client;
 
-        private StudentSavedListener studentSavedListener;
+        private ClientSavedListener studentSavedListener;
 
-        public AddClientMainLayout (StudentSavedListener studentSavedListener) {
+        public AddClientMainLayout (ClientSavedListener studentSavedListener) {
             this.studentSavedListener = studentSavedListener;
         }
 
@@ -106,7 +106,7 @@ public class AddClientMainLayoutFactory {
                 return;
             }
             addClientService.saveClient(client);
-            studentSavedListener.studentSaved();
+            studentSavedListener.clientSaved();
             clearField();
 
             Notification.show(NotificationMessages.CLIENT_SAVE_SUCCESS_TITLE.getString(),
@@ -125,7 +125,7 @@ public class AddClientMainLayoutFactory {
     @Autowired
     private AddClientService addClientService;
 
-    public Component createComponent(StudentSavedListener studentSavedListener) {
+    public Component createComponent(ClientSavedListener studentSavedListener) {
         return new AddClientMainLayout(studentSavedListener).init().bind().layout();
     }
 

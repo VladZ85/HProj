@@ -5,7 +5,7 @@ package com.haulmont.utils;
  */
 public enum  ClientsStringUtils {
 
-    MAIN_MENU("MAIN MENU"),
+    ADD_EDIT_CLIENT("ADD/EDIT CLIENT"),
     SHOW_ALL("SHOW ALL CLIENTS"),
     FIRST_NAME("First name"),
     MIDDLE_NAME("Middle name"),

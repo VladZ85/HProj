@@ -12,7 +12,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 @SpringView(name = OrdersLayoutFactory.NAME, ui = AutoshopMainUI.class)
 public class OrdersLayoutFactory extends VerticalLayout implements View {
-    public static final String NAME = "editorders";
+    public static final String NAME = "add/editorders";
 
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         addComponent(new Label("Orders layout"));

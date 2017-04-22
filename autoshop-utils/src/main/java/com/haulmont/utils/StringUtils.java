@@ -8,9 +8,9 @@ public enum StringUtils {
     MENU_CLIENT("CLIENTS"),
     MENU_ORDER("ORDERS"),
     MENU_CLIENT_LIST("Clients list"),
-    MENU_CLIENT_EDIT ("Edit clients"),
+    MENU_CLIENT_EDIT ("Add/Edit clients"),
     MENU_ORDER_LIST("Orders list"),
-    MENU_ORDER_EDIT ("Edit orders");
+    MENU_ORDER_EDIT ("Add/Edit orders");
 
     private final String string;
 

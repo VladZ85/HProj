@@ -14,11 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by Vlad on 02-Mar-17.
  */
 @SpringView(name = ClientLayoutFactory.NAME, ui = AutoshopMainUI.class)
-public class ClientLayoutFactory extends VerticalLayout implements View, StudentSavedListener {
-    public static final String NAME = "editclients";
+public class ClientLayoutFactory extends VerticalLayout implements View, ClientSavedListener {
+    public static final String NAME = "add/editclients";
 
     @Autowired
-    private AddClientMainLayoutFactory mainLayoutFactory;
+    private AddClientLayoutFactory addClientFactory;
 
     @Autowired
     private ShowAllClientsLayoutFactory showClientsLayoutFactory;
@@ -31,11 +31,12 @@ public class ClientLayoutFactory extends VerticalLayout implements View, Student
         tabSheet = new TabSheet();
         tabSheet.setWidth("100%");
 
-        Component addClientMainTab = mainLayoutFactory.createComponent(this);
+        Component addClientMainTab = addClientFactory.createComponent(this);
         Component showClientsTab = showClientsLayoutFactory.createComponent();
 
-        tabSheet.addTab(addClientMainTab, ClientsStringUtils.MAIN_MENU.getString());
+        tabSheet.addTab(addClientMainTab, ClientsStringUtils.ADD_EDIT_CLIENT.getString());
         tabSheet.addTab(showClientsTab, ClientsStringUtils.SHOW_ALL.getString());
+
 
         addComponent(tabSheet);
     }
@@ -45,7 +46,7 @@ public class ClientLayoutFactory extends VerticalLayout implements View, Student
         addLayout();
     }
 
-    public void studentSaved() {
+    public void clientSaved() {
         showClientsLayoutFactory.refreshTable();
     }
 }

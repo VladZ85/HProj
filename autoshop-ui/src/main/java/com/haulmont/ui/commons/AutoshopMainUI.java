@@ -43,7 +43,7 @@ public class AutoshopMainUI extends UI {
         rootLayout.setMargin(true);
 
         Panel contentPanel = new Panel();
-        contentPanel.setWidth("85%");
+        contentPanel.setWidth("70%");
         contentPanel.setHeight("100%");
 
         HorizontalLayout uiLayout = new HorizontalLayout();
@@ -55,11 +55,11 @@ public class AutoshopMainUI extends UI {
         uiLayout.addComponent(menu);
         uiLayout.addComponent(changeTab);
 
-        uiLayout.setComponentAlignment(changeTab, Alignment.TOP_CENTER);
-        uiLayout.setComponentAlignment(menu, Alignment.TOP_CENTER);
+        //uiLayout.setComponentAlignment(changeTab, Alignment.TOP_CENTER);
+        //uiLayout.setComponentAlignment(menu, Alignment.TOP_CENTER);
 
         uiLayout.setExpandRatio(menu, 1);
-        uiLayout.setExpandRatio(changeTab, 2);
+        uiLayout.setExpandRatio(changeTab, 7);
 
         contentPanel.setContent(uiLayout);
 

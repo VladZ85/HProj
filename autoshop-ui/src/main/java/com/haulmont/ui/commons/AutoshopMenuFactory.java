@@ -58,7 +58,6 @@ public class AutoshopMenuFactory implements UIComponentBuilder {
             if (selectedItemPath == null) return;
             String path = selectedItemPath.toLowerCase().replaceAll("\\s+", "");
             AutoshopNavigator.navigate(path);
-            System.out.println(path);
         }
     }
 

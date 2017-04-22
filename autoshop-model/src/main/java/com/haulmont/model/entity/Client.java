@@ -2,6 +2,7 @@ package com.haulmont.model.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * Created by Vlad on 05-Mar-17.
@@ -26,6 +27,7 @@ public class Client {
     private String lastName;
 
     @NotNull(message = "You have to specify phone number")
+    @Pattern(regexp="[\\d]{6,11}")
     @Column(name = "phone_number")
     private String phoneNumber;
 
